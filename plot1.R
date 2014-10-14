@@ -1,0 +1,8 @@
+classes=c("character", "character", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric")
+dataset=read.table("household_power_consumption.txt",header=TRUE,sep = ";",dec = ".",colClasses = classes,fill=TRUE,na.strings=c("?"))
+dataset$Date=as.Date(dataset$Date,format = "%d/%m/%Y")
+dataSet=subset(dataset,dataset$Date==as.Date("01/02/2007",format = "%d/%m/%Y") | dataset$Date==as.Date("02/02/2007",format = "%d/%m/%Y"))
+dataSet$DateTime=as.POSIXct(paste(dataSet$Date, dataSet$Time), format="%Y-%m-%d %H:%M:%S")
+png(filename = "plot1.png",width = 480,height = 480)
+hist(dataSet$Global_active_power,col = "red",xlab = "Global active power (kilowatts)",main = "Global Active Power")
+dev.off()
